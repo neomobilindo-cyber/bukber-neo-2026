@@ -2,44 +2,96 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Undangan Buka Puasa</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+<title>Undangan Buka Puasa Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
 body{
     margin:0;
     font-family:'Poppins',sans-serif;
-    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-    color:white;
-    text-align:center;
+    background:linear-gradient(135deg,#000,#1a1a1a,#2b2b2b);
+    color:#fff;
     overflow-x:hidden;
 }
 
+/* COVER */
+.cover{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:radial-gradient(circle,#000,#111);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:999;
+}
+
+.envelope{
+    width:220px;
+    height:130px;
+    background:gold;
+    position:relative;
+    cursor:pointer;
+    border-radius:10px;
+    transition:0.5s;
+}
+.envelope:before{
+    content:'';
+    position:absolute;
+    top:-65px;
+    left:0;
+    width:220px;
+    height:65px;
+    background:#d4af37;
+    clip-path:polygon(0 100%,50% 0,100% 100%);
+}
+
+.cover h2{
+    margin-top:25px;
+    font-family:'Playfair Display',serif;
+    color:gold;
+}
+
+.fade-in-name{
+    opacity:0;
+    transform:translateY(20px) scale(0.95);
+    animation:fadeZoom 2s ease forwards;
+}
+
+@keyframes fadeZoom{
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+/* CARD */
 .card{
-    background:rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    max-width:500px;
-    margin:40px auto;
-    padding:25px;
+    max-width:600px;
+    margin:50px auto;
+    padding:30px;
+    background:rgba(255,215,0,0.05);
     border-radius:20px;
-    box-shadow:0 0 30px rgba(255,215,0,0.3);
+    box-shadow:0 0 40px rgba(255,215,0,0.3);
+    display:none;
 }
 
 h1{
-    font-weight:600;
-    font-size:28px;
+    font-family:'Playfair Display',serif;
+    color:gold;
 }
 
 .countdown{
     font-size:20px;
     margin:15px 0;
-    color:gold;
+    color:#ffd700;
 }
 
-input, select{
-    width:90%;
+input,select{
+    width:95%;
     padding:10px;
-    margin:6px 0;
+    margin:8px 0;
     border-radius:10px;
     border:none;
 }
@@ -49,9 +101,9 @@ button{
     color:black;
     padding:10px 20px;
     border:none;
-    border-radius:12px;
-    cursor:pointer;
+    border-radius:15px;
     font-weight:bold;
+    cursor:pointer;
 }
 
 iframe{
@@ -62,29 +114,19 @@ iframe{
 
 .total{
     margin-top:15px;
-    font-size:18px;
     color:#00ffcc;
 }
 
-/* Animasi lampu */
-.lamp{
+/* bintang */
+.star{
     position:fixed;
-    top:0;
-    width:100%;
-    display:flex;
-    justify-content:space-around;
+    width:2px;
+    height:2px;
+    background:white;
+    animation:twinkle 2s infinite alternate;
 }
-
-.lamp span{
-    width:10px;
-    height:10px;
-    background:gold;
-    border-radius:50%;
-    animation:blink 1s infinite alternate;
-}
-
-@keyframes blink{
-    from{opacity:0.3;}
+@keyframes twinkle{
+    from{opacity:0.2;}
     to{opacity:1;}
 }
 </style>
@@ -92,33 +134,41 @@ iframe{
 
 <body>
 
-<div class="lamp">
-    <span></span><span></span><span></span><span></span><span></span>
+<!-- COVER -->
+<div class="cover" id="cover">
+    <div class="envelope" onclick="openInvite()"></div>
+    <h2>Klik Amplop Untuk Membuka Undangan</h2>
+    <p id="coverNama" style="color:gold;font-size:18px;margin-top:10px;"></p>
 </div>
 
-<audio autoplay loop>
+<!-- AUDIO -->
+<audio id="bgm" loop>
     <source src="musik.mp3" type="audio/mpeg">
 </audio>
 
-<div class="card">
-    <h1>🌙 Undangan Buka Puasa 🌙</h1>
+<audio id="adzan">
+    <source src="adzan.mp3" type="audio/mpeg">
+</audio>
+
+<!-- CONTENT -->
+<div class="card" id="card">
+    <h1>🌙 Buka Puasa Bersama 🌙</h1>
+    <p id="namaTamu" style="font-size:18px;color:#ffd700;"></p>
 
     <p>Assalamu’alaikum Wr. Wb.</p>
-    <p>Mari hadir dalam acara berbuka puasa bersama</p>
+    <p>Dengan penuh kebahagiaan kami mengundang Anda untuk hadir dalam acara berbuka puasa bersama.</p>
 
     <p><b>Sabtu, 15 Maret 2026</b><br>
     17.00 WIB - Selesai</p>
 
     <div class="countdown" id="countdown"></div>
 
-    <h3>Lokasi</h3>
-    <iframe src="https://maps.app.goo.gl/rKKBCQRRAF6xL895A"></iframe>
+    <h3>Lokasi Acara</h3>
+    <iframe src="https://www.google.com/maps/embed?pb=YOUR_MAP_LINK"></iframe>
 
     <h3>Konfirmasi Kehadiran</h3>
-
-    <input type="text" id="nama" placeholder="Nama Anda" required>
-    <input type="number" id="jumlah" placeholder="Jumlah Hadir" min="1" required>
-
+    <input type="text" id="nama" placeholder="Nama Anda">
+    <input type="number" id="jumlah" placeholder="Jumlah Hadir">
     <select id="status">
         <option value="Hadir">Hadir</option>
         <option value="Tidak Hadir">Tidak Hadir</option>
@@ -127,57 +177,94 @@ iframe{
     <button onclick="kirimData()">Kirim Konfirmasi</button>
 
     <div class="total">
-        Total Hadir Saat Ini: <span id="totalHadir">0</span> Orang
+        Total Hadir: <span id="totalHadir">0</span> Orang
     </div>
 </div>
 
 <script>
-// === COUNTDOWN ===
-var countDate = new Date("Mar 9, 2026 17:00:00").getTime();
+// buka amplop
+function openInvite(){
+    document.getElementById("cover").style.display="none";
+    document.getElementById("card").style.display="block";
+    document.getElementById("bgm").play();
+}
+
+// ambil nama dari URL
+function getParameterByName(name){
+    name=name.replace(/[\[\]]/g,"\\$&");
+    var url=window.location.href;
+    var regex=new RegExp("[?&]"+name+"(=([^&#]*)|&|#|$)");
+    var results=regex.exec(url);
+    if(!results)return null;
+    if(!results[2])return '';
+    return decodeURIComponent(results[2].replace(/\+/g," "));
+}
+
+var tamu=getParameterByName('to');
+
+if(tamu){
+    var coverText=document.getElementById("coverNama");
+    coverText.innerHTML="Undangan Untuk<br><strong style='font-size:24px'>"+tamu+"</strong>";
+    coverText.classList.add("fade-in-name");
+
+    document.getElementById("namaTamu").innerHTML="Kepada Yth.<br><strong>"+tamu+"</strong>";
+    document.getElementById("nama").value=tamu;
+}
+
+// countdown + adzan
+var countDate=new Date("Mar 15, 2026 17:00:00").getTime();
 setInterval(function(){
-    var now = new Date().getTime();
-    var gap = countDate - now;
+    var now=new Date().getTime();
+    var gap=countDate-now;
 
-    var d = Math.floor(gap/(1000*60*60*24));
-    var h = Math.floor((gap%(1000*60*60*24))/(1000*60*60));
-    var m = Math.floor((gap%(1000*60*60))/(1000*60));
-    var s = Math.floor((gap%(1000*60))/1000);
+    if(gap<=60000 && gap>0){
+        document.getElementById("adzan").play();
+    }
 
-    document.getElementById("countdown").innerHTML =
-    "Menuju Buka Puasa: "+d+" Hari "+h+" Jam "+m+" Menit "+s+" Detik";
+    var d=Math.floor(gap/(1000*60*60*24));
+    var h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
+    var m=Math.floor((gap%(1000*60*60))/(1000*60));
+    var s=Math.floor((gap%(1000*60))/1000);
+
+    document.getElementById("countdown").innerHTML=
+    d+" Hari "+h+" Jam "+m+" Menit "+s+" Detik menuju berbuka";
 },1000);
 
-
-// === AMBIL TOTAL HADIR ===
+// ambil total hadir
 fetch("YOUR_GOOGLE_SCRIPT_URL")
 .then(res=>res.json())
 .then(data=>{
-    document.getElementById("totalHadir").innerText = data.total;
+    document.getElementById("totalHadir").innerText=data.total;
 });
 
-
-// === KIRIM DATA ===
+// kirim data
 function kirimData(){
-    var nama = document.getElementById("nama").value;
-    var jumlah = document.getElementById("jumlah").value;
-    var status = document.getElementById("status").value;
+    var nama=document.getElementById("nama").value;
+    var jumlah=document.getElementById("jumlah").value;
+    var status=document.getElementById("status").value;
 
-    var data = {nama:nama, jumlah:jumlah, status:status};
+    var data={nama:nama,jumlah:jumlah,status:status};
 
     fetch("YOUR_GOOGLE_SCRIPT_URL",{
         method:"POST",
         body:JSON.stringify(data)
-    }).then(()=>{
-        alert("Konfirmasi berhasil dikirim");
-        location.reload();
-    });
+    }).then(()=>location.reload());
 
-    var pesan = `Konfirmasi Buka Puasa:%0A
-Nama: ${nama}%0A
-Jumlah: ${jumlah}%0A
-Status: ${status}`;
+    var pesan=`Konfirmasi Buka Puasa:%0A
+Nama:${nama}%0A
+Jumlah:${jumlah}%0A
+Status:${status}`;
 
-    window.open("https://wa.me/6281388991730?text="+pesan,"_blank");
+    window.open("https://wa.me/628xxxxxxxxxx?text="+pesan,"_blank");
+}
+
+// bintang
+for(let i=0;i<120;i++){
+    let star=document.createElement("div");
+    star.className="star";
+    star.style.top=Math.random()*100+"vh";
+    star.style.left=Math.random()*100+"vw";
+    document.body.appendChild(star);
 }
 </script>
 
