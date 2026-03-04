@@ -2,10 +2,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Undangan Buka Puasa Premium</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
+*{
+    box-sizing:border-box;
+}
+
 body{
     margin:0;
     font-family:'Poppins',sans-serif;
@@ -24,33 +30,30 @@ body{
     justify-content:center;
     align-items:center;
     flex-direction:column;
+    text-align:center;
+    padding:20px;
     z-index:999;
 }
 
 .envelope{
-    width:220px;
-    height:130px;
+    width:70%;
+    max-width:240px;
+    height:140px;
     background:gold;
     position:relative;
     cursor:pointer;
-    border-radius:10px;
-    transition:0.5s;
+    border-radius:12px;
 }
+
 .envelope:before{
     content:'';
     position:absolute;
-    top:-65px;
+    top:-70px;
     left:0;
-    width:220px;
-    height:65px;
+    width:100%;
+    height:70px;
     background:#d4af37;
     clip-path:polygon(0 100%,50% 0,100% 100%);
-}
-
-.cover h2{
-    margin-top:25px;
-    font-family:'Playfair Display',serif;
-    color:gold;
 }
 
 .fade-in-name{
@@ -68,56 +71,64 @@ body{
 
 /* CARD */
 .card{
+    width:92%;
     max-width:600px;
-    margin:50px auto;
-    padding:30px;
-    background:rgba(255,215,0,0.05);
+    margin:40px auto;
+    padding:25px 20px;
+    background:rgba(255,215,0,0.06);
     border-radius:20px;
-    box-shadow:0 0 40px rgba(255,215,0,0.3);
+    box-shadow:0 0 30px rgba(255,215,0,0.3);
     display:none;
 }
 
 h1{
     font-family:'Playfair Display',serif;
     color:gold;
+    font-size:24px;
 }
 
 .countdown{
-    font-size:20px;
+    font-size:16px;
     margin:15px 0;
     color:#ffd700;
 }
 
 input,select{
-    width:95%;
-    padding:10px;
+    width:100%;
+    padding:14px;
     margin:8px 0;
-    border-radius:10px;
+    border-radius:12px;
     border:none;
+    font-size:16px;
 }
 
 button{
+    width:100%;
     background:gold;
     color:black;
-    padding:10px 20px;
+    padding:14px;
     border:none;
     border-radius:15px;
     font-weight:bold;
-    cursor:pointer;
+    font-size:16px;
+    margin-top:10px;
 }
 
 iframe{
     width:100%;
-    height:250px;
+    height:220px;
     border-radius:15px;
+    border:none;
 }
 
 .total{
     margin-top:15px;
+    font-size:15px;
     color:#00ffcc;
+    text-align:center;
 }
 
-/* bintang */
+/* Stars */
 .star{
     position:fixed;
     width:2px;
@@ -125,9 +136,16 @@ iframe{
     background:white;
     animation:twinkle 2s infinite alternate;
 }
+
 @keyframes twinkle{
     from{opacity:0.2;}
     to{opacity:1;}
+}
+
+/* Responsive tweak */
+@media (min-width:768px){
+    .countdown{font-size:18px;}
+    h1{font-size:28px;}
 }
 </style>
 </head>
@@ -137,7 +155,7 @@ iframe{
 <!-- COVER -->
 <div class="cover" id="cover">
     <div class="envelope" onclick="openInvite()"></div>
-    <h2>Klik Amplop Untuk Membuka Undangan</h2>
+    <h3 style="color:gold;margin-top:30px;">Klik Amplop Untuk Membuka Undangan</h3>
     <p id="coverNama" style="color:gold;font-size:18px;margin-top:10px;"></p>
 </div>
 
@@ -153,18 +171,18 @@ iframe{
 <!-- CONTENT -->
 <div class="card" id="card">
     <h1>🌙 Buka Puasa Bersama 🌙</h1>
-    <p id="namaTamu" style="font-size:18px;color:#ffd700;"></p>
+    <p id="namaTamu" style="color:#ffd700;"></p>
 
     <p>Assalamu’alaikum Wr. Wb.</p>
-    <p>Dengan penuh kebahagiaan kami mengundang Anda untuk hadir dalam acara berbuka puasa bersama neo mobilindo.</p>
+    <p>Kami mengundang Anda untuk hadir dalam acara berbuka puasa bersama neo mobilindo.</p>
 
     <p><b>Sabtu, 9 Maret 2026</b><br>
     17.00 WIB - Selesai</p>
 
     <div class="countdown" id="countdown"></div>
 
-    <h3>Lokasi Acara</h3>
-    <iframe src="https://www.google.com/maps/embed?pb=https://maps.app.goo.gl/rKKBCQRRAF6xL895A"></iframe>
+    <h3>Lokasi</h3>
+    <iframe src="https://www.google.com/maps/embed?pb=YOUR_MAP_LINK"></iframe>
 
     <h3>Konfirmasi Kehadiran</h3>
     <input type="text" id="nama" placeholder="Nama Anda">
@@ -177,11 +195,12 @@ iframe{
     <button onclick="kirimData()">Kirim Konfirmasi</button>
 
     <div class="total">
-        Total Hadir: <span id="totalHadir">0</span> Orang
+        Total Hadir: <span id="totalHadir">0</span>
     </div>
 </div>
 
 <script>
+
 // buka amplop
 function openInvite(){
     document.getElementById("cover").style.display="none";
@@ -191,27 +210,22 @@ function openInvite(){
 
 // ambil nama dari URL
 function getParameterByName(name){
-    name=name.replace(/[\[\]]/g,"\\$&");
-    var url=window.location.href;
-    var regex=new RegExp("[?&]"+name+"(=([^&#]*)|&|#|$)");
-    var results=regex.exec(url);
-    if(!results)return null;
-    if(!results[2])return '';
-    return decodeURIComponent(results[2].replace(/\+/g," "));
+    var url=new URL(window.location.href);
+    return url.searchParams.get(name);
 }
 
 var tamu=getParameterByName('to');
 
 if(tamu){
     var coverText=document.getElementById("coverNama");
-    coverText.innerHTML="Undangan Untuk<br><strong style='font-size:24px'>"+tamu+"</strong>";
+    coverText.innerHTML="Undangan Untuk<br><strong style='font-size:22px'>"+tamu+"</strong>";
     coverText.classList.add("fade-in-name");
 
     document.getElementById("namaTamu").innerHTML="Kepada Yth.<br><strong>"+tamu+"</strong>";
     document.getElementById("nama").value=tamu;
 }
 
-// countdown + adzan
+// countdown
 var countDate=new Date("Mar 15, 2026 17:00:00").getTime();
 setInterval(function(){
     var now=new Date().getTime();
@@ -234,7 +248,8 @@ setInterval(function(){
 fetch("https://script.google.com/macros/s/AKfycbyMI1hxxDcEsiTQDWVM2vzakkAK4hgUSk50_2xt5bycRVRZyotCvwglwQw5WWiaqVEmxQ/exec")
 .then(res=>res.json())
 .then(data=>{
-    document.getElementById("totalHadir").innerText=data.total;
+    document.getElementById("totalHadir").innerText =
+        data.total + " / " + data.max;
 });
 
 // kirim data
@@ -245,21 +260,31 @@ function kirimData(){
 
     var data={nama:nama,jumlah:jumlah,status:status};
 
-    fetch("https://script.google.com/macros/s/AKfycbyMI1hxxDcEsiTQDWVM2vzakkAK4hgUSk50_2xt5bycRVRZyotCvwglwQw5WWiaqVEmxQ/exec",{
+    fetch("YOUR_GOOGLE_SCRIPT_URL",{
         method:"POST",
         body:JSON.stringify(data)
-    }).then(()=>location.reload());
+    })
+    .then(res=>res.json())
+    .then(response=>{
+        if(response.status=="FULL"){
+            alert("Maaf, kuota sudah penuh 🙏");
+            return;
+        }
 
-    var pesan=`Konfirmasi Buka Puasa:%0A
+        alert("Konfirmasi berhasil dikirim 🎉");
+
+        var pesan=`Konfirmasi Buka Puasa:%0A
 Nama:${nama}%0A
 Jumlah:${jumlah}%0A
 Status:${status}`;
 
-    window.open("https://wa.me/6281388991730?text="+pesan,"_blank");
+        window.open("https://wa.me/6281388991730?text="+pesan,"_blank");
+        location.reload();
+    });
 }
 
-// bintang
-for(let i=0;i<120;i++){
+// stars
+for(let i=0;i<80;i++){
     let star=document.createElement("div");
     star.className="star";
     star.style.top=Math.random()*100+"vh";
