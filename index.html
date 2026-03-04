@@ -8,289 +8,312 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box;}
 
 body{
-    margin:0;
-    font-family:'Poppins',sans-serif;
-    background:linear-gradient(135deg,#000,#1a1a1a,#2b2b2b);
-    color:#fff;
-    overflow-x:hidden;
+margin:0;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#000,#1a1a1a,#2b2b2b);
+color:#fff;
+overflow-x:hidden;
 }
 
 /* COVER */
 .cover{
-    position:fixed;
-    width:100%;
-    height:100vh;
-    background:radial-gradient(circle,#000,#111);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    text-align:center;
-    padding:20px;
-    z-index:999;
+position:fixed;
+width:100%;
+height:100vh;
+background:radial-gradient(circle,#000,#111);
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+padding:20px;
+z-index:999;
 }
 
 .envelope{
-    width:70%;
-    max-width:240px;
-    height:140px;
-    background:gold;
-    position:relative;
-    cursor:pointer;
-    border-radius:12px;
+width:70%;
+max-width:240px;
+height:140px;
+background:gold;
+border-radius:12px;
+cursor:pointer;
 }
 
 .envelope:before{
-    content:'';
-    position:absolute;
-    top:-70px;
-    left:0;
-    width:100%;
-    height:70px;
-    background:#d4af37;
-    clip-path:polygon(0 100%,50% 0,100% 100%);
+content:'';
+position:absolute;
 }
 
 .fade-in-name{
-    opacity:0;
-    transform:translateY(20px) scale(0.95);
-    animation:fadeZoom 2s ease forwards;
+opacity:0;
+transform:translateY(20px) scale(0.95);
+animation:fadeZoom 2s ease forwards;
 }
 
 @keyframes fadeZoom{
-    to{
-        opacity:1;
-        transform:translateY(0) scale(1);
-    }
+to{opacity:1;transform:translateY(0) scale(1);}
 }
 
 /* CARD */
 .card{
-    width:92%;
-    max-width:600px;
-    margin:40px auto;
-    padding:25px 20px;
-    background:rgba(255,215,0,0.06);
-    border-radius:20px;
-    box-shadow:0 0 30px rgba(255,215,0,0.3);
-    display:none;
+width:92%;
+max-width:600px;
+margin:40px auto;
+padding:25px 20px;
+background:rgba(255,215,0,0.06);
+border-radius:20px;
+box-shadow:0 0 30px rgba(255,215,0,0.3);
+display:none;
 }
 
 h1{
-    font-family:'Playfair Display',serif;
-    color:gold;
-    font-size:24px;
+font-family:'Playfair Display',serif;
+color:gold;
+font-size:24px;
 }
 
 .countdown{
-    font-size:16px;
-    margin:15px 0;
-    color:#ffd700;
+font-size:16px;
+margin:15px 0;
+color:#ffd700;
 }
 
 input,select{
-    width:100%;
-    padding:14px;
-    margin:8px 0;
-    border-radius:12px;
-    border:none;
-    font-size:16px;
+width:100%;
+padding:14px;
+margin:8px 0;
+border-radius:12px;
+border:none;
+font-size:16px;
 }
 
 button{
-    width:100%;
-    background:gold;
-    color:black;
-    padding:14px;
-    border:none;
-    border-radius:15px;
-    font-weight:bold;
-    font-size:16px;
-    margin-top:10px;
+width:100%;
+background:gold;
+color:black;
+padding:14px;
+border:none;
+border-radius:15px;
+font-weight:bold;
+font-size:16px;
+margin-top:10px;
+cursor:pointer;
+}
+
+button:disabled{
+background:#999;
+cursor:not-allowed;
 }
 
 iframe{
-    width:100%;
-    height:220px;
-    border-radius:15px;
-    border:none;
+width:100%;
+height:220px;
+border-radius:15px;
+border:none;
 }
 
 .total{
-    margin-top:15px;
-    font-size:15px;
-    color:#00ffcc;
-    text-align:center;
+margin-top:15px;
+font-size:15px;
+color:#00ffcc;
+text-align:center;
+}
+
+#notif{
+display:none;
+margin-top:15px;
+padding:12px;
+border-radius:10px;
+font-size:14px;
 }
 
 /* Stars */
 .star{
-    position:fixed;
-    width:2px;
-    height:2px;
-    background:white;
-    animation:twinkle 2s infinite alternate;
+position:fixed;
+width:2px;
+height:2px;
+background:white;
+animation:twinkle 2s infinite alternate;
 }
 
 @keyframes twinkle{
-    from{opacity:0.2;}
-    to{opacity:1;}
-}
-
-/* Responsive tweak */
-@media (min-width:768px){
-    .countdown{font-size:18px;}
-    h1{font-size:28px;}
+from{opacity:0.2;}
+to{opacity:1;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- COVER -->
 <div class="cover" id="cover">
-    <div class="envelope" onclick="openInvite()"></div>
-    <h3 style="color:gold;margin-top:30px;">Klik Amplop Untuk Membuka Undangan</h3>
-    <p id="coverNama" style="color:gold;font-size:18px;margin-top:10px;"></p>
+<div class="envelope" onclick="openInvite()"></div>
+<h3 style="color:gold;margin-top:30px;">Klik Amplop Untuk Membuka Undangan</h3>
+<p id="coverNama" style="color:gold;font-size:18px;margin-top:10px;"></p>
 </div>
 
-<!-- AUDIO -->
 <audio id="bgm" loop>
-    <source src="musik.mp3" type="audio/mpeg">
+<source src="musik.mp3" type="audio/mpeg">
 </audio>
 
 <audio id="adzan">
-    <source src="adzan.mp3" type="audio/mpeg">
+<source src="adzan.mp3" type="audio/mpeg">
 </audio>
 
-<!-- CONTENT -->
 <div class="card" id="card">
-    <h1>🌙 Buka Puasa Bersama 🌙</h1>
-    <p id="namaTamu" style="color:#ffd700;"></p>
+<h1>🌙 Buka Puasa Bersama 🌙</h1>
+<p id="namaTamu" style="color:#ffd700;"></p>
 
-    <p>Assalamu’alaikum Wr. Wb.</p>
-    <p>Kami mengundang Anda untuk hadir dalam acara berbuka puasa bersama neo mobilindo.</p>
+<p>Assalamu’alaikum Wr. Wb.</p>
+<p>Kami mengundang Anda untuk hadir dalam acara berbuka puasa bersama.</p>
 
-    <p><b>Sabtu, 9 Maret 2026</b><br>
-    17.00 WIB - Selesai</p>
+<p><b>Sabtu, 15 Maret 2026</b><br>17.00 WIB - Selesai</p>
 
-    <div class="countdown" id="countdown"></div>
+<div class="countdown" id="countdown"></div>
 
-    <h3>Lokasi</h3>
-    <iframe src="https://www.google.com/maps/embed?pb=YOUR_MAP_LINK"></iframe>
+<h3>Lokasi</h3>
+<iframe src="https://www.google.com/maps/embed?pb=YOUR_MAP_LINK"></iframe>
 
-    <h3>Konfirmasi Kehadiran</h3>
-    <input type="text" id="nama" placeholder="Nama Anda">
-    <input type="number" id="jumlah" placeholder="Jumlah Hadir">
-    <select id="status">
-        <option value="Hadir">Hadir</option>
-        <option value="Tidak Hadir">Tidak Hadir</option>
-    </select>
+<h3>Konfirmasi Kehadiran</h3>
+<input type="text" id="nama" placeholder="Nama Anda">
+<input type="number" id="jumlah" placeholder="Jumlah Hadir">
+<select id="status">
+<option value="Hadir">Hadir</option>
+<option value="Tidak Hadir">Tidak Hadir</option>
+</select>
 
-    <button onclick="kirimData()">Kirim Konfirmasi</button>
+<button id="btnKirim" onclick="kirimData()">Kirim Konfirmasi</button>
 
-    <div class="total">
-        Total Hadir: <span id="totalHadir">0</span>
-    </div>
+<div id="notif"></div>
+
+<div class="total">
+Total Hadir: <span id="totalHadir">0</span>
+</div>
 </div>
 
 <script>
 
-// buka amplop
+const MAX_KUOTA = 50;
+
+// buka undangan
 function openInvite(){
-    document.getElementById("cover").style.display="none";
-    document.getElementById("card").style.display="block";
-    document.getElementById("bgm").play();
+document.getElementById("cover").style.display="none";
+document.getElementById("card").style.display="block";
+document.getElementById("bgm").play();
 }
 
-// ambil nama dari URL
-function getParameterByName(name){
-    var url=new URL(window.location.href);
-    return url.searchParams.get(name);
-}
-
-var tamu=getParameterByName('to');
+// ambil nama URL
+var url=new URL(window.location.href);
+var tamu=url.searchParams.get("to");
 
 if(tamu){
-    var coverText=document.getElementById("coverNama");
-    coverText.innerHTML="Undangan Untuk<br><strong style='font-size:22px'>"+tamu+"</strong>";
-    coverText.classList.add("fade-in-name");
+let coverText=document.getElementById("coverNama");
+coverText.innerHTML="Undangan Untuk<br><strong style='font-size:22px'>"+tamu+"</strong>";
+coverText.classList.add("fade-in-name");
 
-    document.getElementById("namaTamu").innerHTML="Kepada Yth.<br><strong>"+tamu+"</strong>";
-    document.getElementById("nama").value=tamu;
+document.getElementById("namaTamu").innerHTML="Kepada Yth.<br><strong>"+tamu+"</strong>";
+document.getElementById("nama").value=tamu;
 }
 
 // countdown
 var countDate=new Date("Mar 15, 2026 17:00:00").getTime();
 setInterval(function(){
-    var now=new Date().getTime();
-    var gap=countDate-now;
+var now=new Date().getTime();
+var gap=countDate-now;
 
-    if(gap<=60000 && gap>0){
-        document.getElementById("adzan").play();
-    }
+if(gap<=60000 && gap>0){
+document.getElementById("adzan").play();
+}
 
-    var d=Math.floor(gap/(1000*60*60*24));
-    var h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
-    var m=Math.floor((gap%(1000*60*60))/(1000*60));
-    var s=Math.floor((gap%(1000*60))/1000);
+var d=Math.floor(gap/(1000*60*60*24));
+var h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
+var m=Math.floor((gap%(1000*60*60))/(1000*60));
+var s=Math.floor((gap%(1000*60))/1000);
 
-    document.getElementById("countdown").innerHTML=
-    d+" Hari "+h+" Jam "+m+" Menit "+s+" Detik menuju berbuka";
+document.getElementById("countdown").innerHTML=
+d+" Hari "+h+" Jam "+m+" Menit "+s+" Detik menuju berbuka";
 },1000);
 
 // ambil total hadir
-fetch("https://script.google.com/macros/s/AKfycbyMI1hxxDcEsiTQDWVM2vzakkAK4hgUSk50_2xt5bycRVRZyotCvwglwQw5WWiaqVEmxQ/exec")
+fetch("Yhttps://script.google.com/macros/s/AKfycbyMI1hxxDcEsiTQDWVM2vzakkAK4hgUSk50_2xt5bycRVRZyotCvwglwQw5WWiaqVEmxQ/exec")
 .then(res=>res.json())
 .then(data=>{
-    document.getElementById("totalHadir").innerText =
-        data.total + " / " + data.max;
+document.getElementById("totalHadir").innerText =
+data.total + " / " + data.max;
 });
 
 // kirim data
 function kirimData(){
-    var nama=document.getElementById("nama").value;
-    var jumlah=document.getElementById("jumlah").value;
-    var status=document.getElementById("status").value;
 
-    var data={nama:nama,jumlah:jumlah,status:status};
+let nama=document.getElementById("nama").value.trim();
+let jumlah=document.getElementById("jumlah").value;
+let status=document.getElementById("status").value;
+let btn=document.getElementById("btnKirim");
+let notif=document.getElementById("notif");
 
-    fetch("YOUR_GOOGLE_SCRIPT_URL",{
-        method:"POST",
-        body:JSON.stringify(data)
-    })
-    .then(res=>res.json())
-    .then(response=>{
-        if(response.status=="FULL"){
-            alert("Maaf, kuota sudah penuh 🙏");
-            return;
-        }
+if(!nama || !jumlah){
+notif.style.display="block";
+notif.style.background="#ff4444";
+notif.innerHTML="Mohon lengkapi data terlebih dahulu.";
+return;
+}
 
-        alert("Konfirmasi berhasil dikirim 🎉");
+btn.disabled=true;
+btn.innerText="Mengirim...";
 
-        var pesan=`Konfirmasi Buka Puasa:%0A
+fetch("https://script.google.com/macros/s/AKfycbyMI1hxxDcEsiTQDWVM2vzakkAK4hgUSk50_2xt5bycRVRZyotCvwglwQw5WWiaqVEmxQ/exec",{
+method:"POST",
+body:JSON.stringify({nama:nama,jumlah:jumlah,status:status})
+})
+.then(res=>res.json())
+.then(response=>{
+
+notif.style.display="block";
+
+if(response.status=="FULL"){
+notif.style.background="#ff9800";
+notif.innerHTML="Maaf, kuota sudah penuh 🙏";
+btn.disabled=false;
+btn.innerText="Kirim Konfirmasi";
+return;
+}
+
+if(response.status=="DUPLIKAT"){
+notif.style.background="#ff4444";
+notif.innerHTML="Data sudah pernah dikirim sebelumnya ❌";
+return;
+}
+
+if(response.status=="SUCCESS"){
+notif.style.background="#00c853";
+notif.innerHTML="✅ Data berhasil terkirim. Terima kasih!";
+btn.innerText="Terkirim";
+btn.disabled=true;
+
+document.getElementById("totalHadir").innerText =
+response.total + " / " + MAX_KUOTA;
+
+var pesan=`Konfirmasi Buka Puasa:%0A
 Nama:${nama}%0A
 Jumlah:${jumlah}%0A
 Status:${status}`;
 
-        window.open("https://wa.me/6281388991730?text="+pesan,"_blank");
-        location.reload();
-    });
+window.open("https://wa.me/6281388991730?text="+pesan,"_blank");
+}
+});
 }
 
 // stars
 for(let i=0;i<80;i++){
-    let star=document.createElement("div");
-    star.className="star";
-    star.style.top=Math.random()*100+"vh";
-    star.style.left=Math.random()*100+"vw";
-    document.body.appendChild(star);
+let star=document.createElement("div");
+star.className="star";
+star.style.top=Math.random()*100+"vh";
+star.style.left=Math.random()*100+"vw";
+document.body.appendChild(star);
 }
+
 </script>
 
 </body>
