@@ -156,15 +156,15 @@ iframe{
     <p id="namaTamu" style="font-size:18px;color:#ffd700;"></p>
 
     <p>Assalamu’alaikum Wr. Wb.</p>
-    <p>Dengan penuh kebahagiaan kami mengundang Anda untuk hadir dalam acara berbuka puasa bersama.</p>
+    <p>Dengan penuh kebahagiaan kami mengundang Anda untuk hadir dalam acara berbuka puasa bersama neo mobilindo.</p>
 
-    <p><b>Sabtu, 15 Maret 2026</b><br>
+    <p><b>Sabtu, 9 Maret 2026</b><br>
     17.00 WIB - Selesai</p>
 
     <div class="countdown" id="countdown"></div>
 
     <h3>Lokasi Acara</h3>
-    <iframe src="https://www.google.com/maps/embed?pb=YOUR_MAP_LINK"></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=https://maps.app.goo.gl/rKKBCQRRAF6xL895A"></iframe>
 
     <h3>Konfirmasi Kehadiran</h3>
     <input type="text" id="nama" placeholder="Nama Anda">
@@ -231,7 +231,7 @@ setInterval(function(){
 },1000);
 
 // ambil total hadir
-fetch("YOUR_GOOGLE_SCRIPT_URL")
+fetch("https://script.google.com/macros/s/AKfycbyMI1hxxDcEsiTQDWVM2vzakkAK4hgUSk50_2xt5bycRVRZyotCvwglwQw5WWiaqVEmxQ/exec")
 .then(res=>res.json())
 .then(data=>{
     document.getElementById("totalHadir").innerText=data.total;
@@ -245,7 +245,7 @@ function kirimData(){
 
     var data={nama:nama,jumlah:jumlah,status:status};
 
-    fetch("YOUR_GOOGLE_SCRIPT_URL",{
+    fetch("https://script.google.com/macros/s/AKfycbyMI1hxxDcEsiTQDWVM2vzakkAK4hgUSk50_2xt5bycRVRZyotCvwglwQw5WWiaqVEmxQ/exec",{
         method:"POST",
         body:JSON.stringify(data)
     }).then(()=>location.reload());
@@ -255,7 +255,7 @@ Nama:${nama}%0A
 Jumlah:${jumlah}%0A
 Status:${status}`;
 
-    window.open("https://wa.me/628xxxxxxxxxx?text="+pesan,"_blank");
+    window.open("https://wa.me/6281388991730?text="+pesan,"_blank");
 }
 
 // bintang
