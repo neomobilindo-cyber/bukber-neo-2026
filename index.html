@@ -161,12 +161,9 @@ cursor:pointer;
 
 <h1>🌙 Buka Puasa Bersama 🌙</h1>
 <p style="text-align:center;">
-Kepada<br>
+Kepada : <br>
 <b id="namaTamu"></b>
 </p><p style="text-align:left;">
-Kepada<br>
-<b id="namaTamu"></b>
-</p>
 <p style="text-align:left;">
 Senin, <b>9 Maret 2026</b><br>
 17.00 WIB - Selesai
@@ -223,15 +220,20 @@ document.getElementById("card").style.display="block";
 }
 
 // Nama dari URL
-var url=new URL(window.location.href);
-var tamu=url.searchParams.get("to");
+document.addEventListener("DOMContentLoaded", function(){
+
+const params = new URLSearchParams(window.location.search);
+const tamu = params.get("to");
 
 if(tamu){
-document.getElementById("coverNama").innerHTML="Undangan Untuk <b>"+tamu+"</b>";
+document.getElementById("coverNama").innerHTML = "Undangan Untuk <b>"+ decodeURIComponent(tamu) +"</b>";
 document.getElementById("coverNama").classList.add("fade-in");
-document.getElementById("namaTamu").innerHTML="Kepada Yth.<br><b>"+tamu+"</b>";
-document.getElementById("nama").value=tamu;
+
+document.getElementById("namaTamu").innerHTML = decodeURIComponent(tamu);
+document.getElementById("nama").value = decodeURIComponent(tamu);
 }
+
+});
 
 // Popup
 function showPopup(title,message,type){
