@@ -214,33 +214,47 @@ Total Hadir: <span id="totalHadir">0</span> / 50
 
 const URL="https://script.google.com/macros/s/AKfycbyMI1hxxDcEsiTQDWVM2vzakkAK4hgUSk50_2xt5bycRVRZyotCvwglwQw5WWiaqVEmxQ/exec";
 
+/* ===============================
+   BUKA UNDANGAN
+================================*/
 function openInvite(){
 document.getElementById("cover").style.display="none";
 document.getElementById("card").style.display="block";
 }
 
-// Nama dari URL
+/* ===============================
+   AMBIL NAMA DARI URL
+================================*/
 document.addEventListener("DOMContentLoaded", function(){
 
 const params = new URLSearchParams(window.location.search);
 const tamu = params.get("to");
 
 if(tamu){
-document.getElementById("coverNama").innerHTML = "Undangan Untuk <b>"+ decodeURIComponent(tamu) +"</b>";
+document.getElementById("coverNama").innerHTML =
+"Undangan Untuk <b>"+ decodeURIComponent(tamu) +"</b>";
+
 document.getElementById("coverNama").classList.add("fade-in");
 
-document.getElementById("namaTamu").innerHTML = decodeURIComponent(tamu);
-document.getElementById("nama").value = decodeURIComponent(tamu);
+document.getElementById("namaTamu").innerHTML =
+decodeURIComponent(tamu);
+
+document.getElementById("nama").value =
+decodeURIComponent(tamu);
 }
 
 });
 
-// Popup
+/* ===============================
+   POPUP
+================================*/
 function showPopup(title,message,type){
 let popup=document.getElementById("popup");
 let content=document.getElementById("popupContent");
+
 document.getElementById("popupTitle").innerText=title;
 document.getElementById("popupMessage").innerText=message;
+
 content.className="popup-content popup-"+type;
 popup.classList.add("active");
 }
@@ -249,6 +263,9 @@ function closePopup(){
 document.getElementById("popup").classList.remove("active");
 }
 
+/* ===============================
+   KIRIM DATA (NO CORS VERSION)
+================================*/
 function kirimData(){
 
 let nama=document.getElementById("nama").value.trim();
@@ -280,14 +297,17 @@ if(response.status=="SUCCESS"){
 showPopup("Berhasil 🎉","Konfirmasi berhasil dikirim.","success");
 document.getElementById("totalHadir").innerText=response.total;
 btn.innerText="Terkirim";
+
 }else if(response.status=="DUPLIKAT"){
 showPopup("Gagal","Data sudah pernah dikirim.","error");
 btn.disabled=false;
 btn.innerText="Kirim Konfirmasi";
+
 }else if(response.status=="FULL"){
 showPopup("Kuota Penuh","Maaf kuota sudah penuh.","warning");
 btn.disabled=false;
 btn.innerText="Kirim Konfirmasi";
+
 }else{
 showPopup("Error","Terjadi kesalahan server.","error");
 btn.disabled=false;
@@ -303,34 +323,6 @@ btn.innerText="Kirim Konfirmasi";
 
 }
 
-btn.disabled=true;
-btn.innerText="Mengirim...";
-
-fetch(URL,{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({nama:nama,jumlah:jumlah,status:status})
-})
-.then(res=>res.json())
-.then(response=>{
-if(response.status=="SUCCESS"){
-showPopup("Berhasil 🎉","Konfirmasi berhasil dikirim.","success");
-document.getElementById("totalHadir").innerText=response.total;
-btn.innerText="Terkirim";
-}else{
-showPopup("Gagal","Terjadi kesalahan.","error");
-btn.disabled=false;
-btn.innerText="Kirim Konfirmasi";
-}
-})
-.catch(()=>{
-showPopup("Error","Tidak bisa terhubung ke server.","error");
-btn.disabled=false;
-btn.innerText="Kirim Konfirmasi";
-});
-}
-
 </script>
-
 </body>
 </html>
