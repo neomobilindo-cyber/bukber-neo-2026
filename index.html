@@ -5,16 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Undangan Buka Puasa</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box;}
-
 body{
 margin:0;
 font-family:'Poppins',sans-serif;
-background:linear-gradient(135deg,#000,#1a1a1a,#2b2b2b);
-color:#fff;
+background:linear-gradient(135deg,#000,#1a1a1a);
+color:white;
 overflow-x:hidden;
 }
 
@@ -23,63 +21,43 @@ overflow-x:hidden;
 position:fixed;
 width:100%;
 height:100vh;
-background:radial-gradient(circle,#000,#111);
+background:#000;
 display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-text-align:center;
-padding:20px;
 z-index:999;
+text-align:center;
 }
 
 .envelope{
-width:70%;
-max-width:240px;
+width:220px;
 height:140px;
-background:gold;
+background:linear-gradient(135deg,gold,#ffb300);
 border-radius:12px;
 cursor:pointer;
+box-shadow:0 10px 30px rgba(255,215,0,0.4);
 }
 
-.envelope:before{
-content:'';
-position:absolute;
-}
-
-.fade-in-name{
+.fade-in{
 opacity:0;
-transform:translateY(20px) scale(0.95);
-animation:fadeZoom 2s ease forwards;
+animation:fadeIn 2s forwards;
 }
-
-@keyframes fadeZoom{
-to{opacity:1;transform:translateY(0) scale(1);}
-}
+@keyframes fadeIn{to{opacity:1;}}
 
 /* CARD */
 .card{
+display:none;
 width:92%;
 max-width:600px;
-margin:40px auto;
-padding:25px 20px;
-background:rgba(255,215,0,0.06);
+margin:30px auto;
+background:rgba(255,215,0,0.05);
+padding:20px;
 border-radius:20px;
-box-shadow:0 0 30px rgba(255,215,0,0.3);
-display:none;
+box-shadow:0 0 25px rgba(255,215,0,0.3);
 }
 
-h1{
-font-family:'Playfair Display',serif;
-color:gold;
-font-size:24px;
-}
-
-.countdown{
-font-size:16px;
-margin:15px 0;
-color:#ffd700;
-}
+h1{color:gold;text-align:center;}
 
 input,select{
 width:100%;
@@ -92,56 +70,91 @@ font-size:16px;
 
 button{
 width:100%;
-background:gold;
+background:linear-gradient(135deg,#ffd700,#ffb300);
 color:black;
 padding:14px;
 border:none;
-border-radius:15px;
+border-radius:30px;
 font-weight:bold;
-font-size:16px;
-margin-top:10px;
 cursor:pointer;
+margin-top:10px;
+box-shadow:0 6px 18px rgba(255,215,0,0.4);
 }
 
 button:disabled{
-background:#999;
+background:#777;
 cursor:not-allowed;
+box-shadow:none;
 }
 
-iframe{
-width:100%;
-height:220px;
-border-radius:15px;
-border:none;
+.map-button{
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#ffd700,#ffb300);
+color:#000;
+padding:14px;
+border-radius:30px;
+font-weight:600;
+text-decoration:none;
+margin-top:12px;
+box-shadow:0 6px 18px rgba(255,215,0,0.4);
 }
 
-.total{
-margin-top:15px;
-font-size:15px;
-color:#00ffcc;
-text-align:center;
-}
-
-#notif{
-display:none;
-margin-top:15px;
-padding:12px;
-border-radius:10px;
-font-size:14px;
-}
-
-/* Stars */
-.star{
+/* POPUP MODAL PREMIUM */
+.popup{
 position:fixed;
-width:2px;
-height:2px;
-background:white;
-animation:twinkle 2s infinite alternate;
+top:0;
+left:0;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(6px);
+opacity:0;
+visibility:hidden;
+transition:all 0.3s ease;
+z-index:9999;
 }
 
-@keyframes twinkle{
-from{opacity:0.2;}
-to{opacity:1;}
+.popup.active{
+opacity:1;
+visibility:visible;
+}
+
+.popup-content{
+background:rgba(30,30,30,0.95);
+padding:30px;
+border-radius:20px;
+text-align:center;
+width:85%;
+max-width:350px;
+box-shadow:0 15px 40px rgba(0,0,0,0.5);
+animation:scaleIn 0.3s ease;
+}
+
+@keyframes scaleIn{
+from{transform:scale(0.8);opacity:0;}
+to{transform:scale(1);opacity:1;}
+}
+
+.popup-content h3{
+margin-top:0;
+}
+
+.popup-success h3{color:#00e676;}
+.popup-error h3{color:#ff5252;}
+.popup-warning h3{color:#ffb74d;}
+
+.close-btn{
+margin-top:15px;
+background:gold;
+border:none;
+padding:10px 20px;
+border-radius:20px;
+cursor:pointer;
 }
 </style>
 </head>
@@ -150,30 +163,29 @@ to{opacity:1;}
 
 <div class="cover" id="cover">
 <div class="envelope" onclick="openInvite()"></div>
-<h3 style="color:gold;margin-top:30px;">Klik Amplop Untuk Membuka Undangan</h3>
-<p id="coverNama" style="color:gold;font-size:18px;margin-top:10px;"></p>
+<h3 style="color:gold;margin-top:20px;">Klik Amplop Untuk Membuka</h3>
+<p id="coverNama"></p>
 </div>
 
 <audio id="bgm" loop>
-<source src="musik.mp3" type="audio/mpeg">
-</audio>
-
-<audio id="adzan">
-<source src="adzan.mp3" type="audio/mpeg">
+<source src="musik.mp3">
 </audio>
 
 <div class="card" id="card">
+
 <h1>🌙 Buka Puasa Bersama 🌙</h1>
-<p id="namaTamu" style="color:#ffd700;"></p>
 
-<p>Assalamu’alaikum Wr. Wb.</p>
+<p id="namaTamu" style="text-align:center;color:gold;"></p>
 <p>Mengundang teman2 untuk berbuka puasa bersama.</p>
+<p style="text-align:center;">
+Senin, <b>9 Maret 2026</b><br>
+17.00 WIB - Selesai
+</p>
 
-<p><b>Senin, 9 Maret 2026</b><br>16.00 WIB - Selesai</p>
-
-<div class="countdown" id="countdown"></div>
+<div id="countdown" style="text-align:center;color:gold;"></div>
 
 <h3>Lokasi</h3>
+
 <div style="position:relative;padding-bottom:60%;height:0;overflow:hidden;border-radius:15px;">
   <iframe 
     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3954.5277235806047!2d110.424458!3d-7.6262529999999975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a61c56c5d6cf3%3A0x6f49678c04608c08!2sHeHa%20Forest!5e0!3m2!1sen!2sid!4v1772676140455!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
@@ -224,6 +236,7 @@ font-size:18px;
 </a>
 
 <h3>Konfirmasi Kehadiran</h3>
+
 <input type="text" id="nama" placeholder="Nama Anda">
 <input type="number" id="jumlah" placeholder="Jumlah Hadir">
 <select id="status">
@@ -233,114 +246,83 @@ font-size:18px;
 
 <button id="btnKirim" onclick="kirimData()">Kirim Konfirmasi</button>
 
-<div id="notif"></div>
+<div style="text-align:center;margin-top:10px;">
+Total Hadir: <span id="totalHadir">0</span> / 50
+</div>
 
-<div class="total">
-Total Hadir: <span id="totalHadir">0</span>
+</div>
+
+<!-- POPUP -->
+<div id="popup" class="popup">
+<div class="popup-content" id="popupContent">
+<h3 id="popupTitle"></h3>
+<p id="popupMessage"></p>
+<button class="close-btn" onclick="closePopup()">Tutup</button>
 </div>
 </div>
 
 <script>
 
-const MAX_KUOTA = 50;
+const URL="https://script.google.com/macros/s/AKfycbyMI1hxxDcEsiTQDWVM2vzakkAK4hgUSk50_2xt5bycRVRZyotCvwglwQw5WWiaqVEmxQ/exec";
 
-// buka undangan
 function openInvite(){
 document.getElementById("cover").style.display="none";
 document.getElementById("card").style.display="block";
 document.getElementById("bgm").play();
 }
 
-// ambil nama URL
+// nama dari URL
 var url=new URL(window.location.href);
 var tamu=url.searchParams.get("to");
 
 if(tamu){
-let coverText=document.getElementById("coverNama");
-coverText.innerHTML="Undangan Untuk<br><strong style='font-size:22px'>"+tamu+"</strong>";
-coverText.classList.add("fade-in-name");
-
-document.getElementById("namaTamu").innerHTML="Kepada :<br><strong>"+tamu+"</strong>";
+document.getElementById("coverNama").innerHTML="Undangan Untuk <b>"+tamu+"</b>";
+document.getElementById("coverNama").classList.add("fade-in");
+document.getElementById("namaTamu").innerHTML="Kepada Yth.<br><b>"+tamu+"</b>";
 document.getElementById("nama").value=tamu;
 }
 
-// countdown
-var countDate=new Date("Mar 9, 2026 17:00:00").getTime();
-setInterval(function(){
-var now=new Date().getTime();
-var gap=countDate-now;
-
-if(gap<=60000 && gap>0){
-document.getElementById("adzan").play();
+// popup
+function showPopup(title,message,type){
+let popup=document.getElementById("popup");
+let content=document.getElementById("popupContent");
+document.getElementById("popupTitle").innerText=title;
+document.getElementById("popupMessage").innerText=message;
+content.className="popup-content popup-"+type;
+popup.classList.add("active");
 }
 
-var d=Math.floor(gap/(1000*60*60*24));
-var h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
-var m=Math.floor((gap%(1000*60*60))/(1000*60));
-var s=Math.floor((gap%(1000*60))/1000);
-
-document.getElementById("countdown").innerHTML=
-d+" Hari "+h+" Jam "+m+" Menit "+s+" Detik menuju berbuka";
-},1000);
-
-// ambil total hadir
-fetch("Yhttps://script.google.com/macros/s/AKfycbyMI1hxxDcEsiTQDWVM2vzakkAK4hgUSk50_2xt5bycRVRZyotCvwglwQw5WWiaqVEmxQ/exec")
-.then(res=>res.json())
-.then(data=>{
-document.getElementById("totalHadir").innerText =
-data.total + " / " + data.max;
-});
+function closePopup(){
+document.getElementById("popup").classList.remove("active");
+}
 
 // kirim data
 function kirimData(){
-
 let nama=document.getElementById("nama").value.trim();
 let jumlah=document.getElementById("jumlah").value;
 let status=document.getElementById("status").value;
 let btn=document.getElementById("btnKirim");
-let notif=document.getElementById("notif");
 
 if(!nama || !jumlah){
-notif.style.display="block";
-notif.style.background="#ff4444";
-notif.innerHTML="Mohon lengkapi data terlebih dahulu.";
+showPopup("Data Belum Lengkap","Mohon isi semua field.","error");
 return;
 }
 
 btn.disabled=true;
 btn.innerText="Mengirim...";
 
-fetch("https://script.google.com/macros/s/AKfycbyMI1hxxDcEsiTQDWVM2vzakkAK4hgUSk50_2xt5bycRVRZyotCvwglwQw5WWiaqVEmxQ/exec",{
+fetch(URL,{
 method:"POST",
+headers:{"Content-Type":"application/json"},
 body:JSON.stringify({nama:nama,jumlah:jumlah,status:status})
 })
 .then(res=>res.json())
 .then(response=>{
 
-notif.style.display="block";
-
-if(response.status=="FULL"){
-notif.style.background="#ff9800";
-notif.innerHTML="Maaf, kuota sudah penuh 🙏";
-btn.disabled=false;
-btn.innerText="Kirim Konfirmasi";
-return;
-}
-
-if(response.status=="DUPLIKAT"){
-notif.style.background="#ff4444";
-notif.innerHTML="Data sudah pernah dikirim sebelumnya ❌";
-return;
-}
-
 if(response.status=="SUCCESS"){
-notif.style.background="#00c853";
-notif.innerHTML="✅ Data berhasil terkirim. Terima kasih!";
+showPopup("Berhasil 🎉","Konfirmasi berhasil dikirim.","success");
+document.getElementById("totalHadir").innerText=response.total;
 btn.innerText="Terkirim";
-btn.disabled=true;
-
-document.getElementById("totalHadir").innerText =
-response.total + " / " + MAX_KUOTA;
 
 var pesan=`Konfirmasi Buka Puasa:%0A
 Nama:${nama}%0A
@@ -348,17 +330,29 @@ Jumlah:${jumlah}%0A
 Status:${status}`;
 
 window.open("https://wa.me/6281388991730?text="+pesan,"_blank");
-}
-});
+
+}else if(response.status=="DUPLIKAT"){
+showPopup("Gagal","Data sudah pernah dikirim.","error");
+btn.disabled=false;
+btn.innerText="Kirim Konfirmasi";
+
+}else if(response.status=="FULL"){
+showPopup("Kuota Penuh","Maaf kuota sudah penuh.","warning");
+btn.disabled=false;
+btn.innerText="Kirim Konfirmasi";
+
+}else{
+showPopup("Error","Terjadi kesalahan server.","error");
+btn.disabled=false;
+btn.innerText="Kirim Konfirmasi";
 }
 
-// stars
-for(let i=0;i<80;i++){
-let star=document.createElement("div");
-star.className="star";
-star.style.top=Math.random()*100+"vh";
-star.style.left=Math.random()*100+"vw";
-document.body.appendChild(star);
+})
+.catch(()=>{
+showPopup("Error","Tidak bisa terhubung ke server.","error");
+btn.disabled=false;
+btn.innerText="Kirim Konfirmasi";
+});
 }
 
 </script>
