@@ -250,6 +250,7 @@ document.getElementById("popup").classList.remove("active");
 }
 
 function kirimData(){
+
 let nama=document.getElementById("nama").value.trim();
 let jumlah=document.getElementById("jumlah").value;
 let status=document.getElementById("status").value;
@@ -258,6 +259,48 @@ let btn=document.getElementById("btnKirim");
 if(!nama || !jumlah){
 showPopup("Data Belum Lengkap","Mohon isi semua field.","error");
 return;
+}
+
+btn.disabled=true;
+btn.innerText="Mengirim...";
+
+const formData = new URLSearchParams();
+formData.append("nama", nama);
+formData.append("jumlah", jumlah);
+formData.append("status", status);
+
+fetch(URL,{
+method:"POST",
+body:formData
+})
+.then(res=>res.json())
+.then(response=>{
+
+if(response.status=="SUCCESS"){
+showPopup("Berhasil 🎉","Konfirmasi berhasil dikirim.","success");
+document.getElementById("totalHadir").innerText=response.total;
+btn.innerText="Terkirim";
+}else if(response.status=="DUPLIKAT"){
+showPopup("Gagal","Data sudah pernah dikirim.","error");
+btn.disabled=false;
+btn.innerText="Kirim Konfirmasi";
+}else if(response.status=="FULL"){
+showPopup("Kuota Penuh","Maaf kuota sudah penuh.","warning");
+btn.disabled=false;
+btn.innerText="Kirim Konfirmasi";
+}else{
+showPopup("Error","Terjadi kesalahan server.","error");
+btn.disabled=false;
+btn.innerText="Kirim Konfirmasi";
+}
+
+})
+.catch(()=>{
+showPopup("Error","Tidak bisa terhubung ke server.","error");
+btn.disabled=false;
+btn.innerText="Kirim Konfirmasi";
+});
+
 }
 
 btn.disabled=true;
