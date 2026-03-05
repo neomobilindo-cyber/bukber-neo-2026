@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard Admin - Buka Puasa</title>
+
+<style>
+body{
+font-family:Arial;
+background:#111;
+color:white;
+padding:20px;
+}
+
+.card{
+background:#1e1e1e;
+padding:20px;
+border-radius:15px;
+margin-bottom:20px;
+}
+
+h1{color:gold;}
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #333;
+text-align:left;
+}
+
+th{color:gold;}
+
+.badge{
+padding:5px 10px;
+border-radius:10px;
+font-size:12px;
+}
+
+.hadir{background:#00c853;}
+.tidak{background:#ff4444;}
+</style>
+</head>
+
+<body>
+
+<h1>📊 Dashboard Admin Live</h1>
+
+<div class="card">
+<h2>Total Hadir: <span id="total">0</span> / 50</h2>
+<h3>Sisa Kuota: <span id="sisa">50</span></h3>
+</div>
+
+<div class="card">
+<h2>Daftar Tamu</h2>
+<table>
+<thead>
+<tr>
+<th>Nama</th>
+<th>Jumlah</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody id="listTamu"></tbody>
+</table>
+</div>
+
+<script>
+
+const URL = "YOUR_GOOGLE_SCRIPT_URL";
+
+function loadData(){
+fetch(URL)
+.then(res=>res.json())
+.then(data=>{
+
+document.getElementById("total").innerText = data.total;
+document.getElementById("sisa").innerText = data.max - data.total;
+
+let html="";
+data.list.forEach(t=>{
+html+=`
+<tr>
+<td>${t.nama}</td>
+<td>${t.jumlah}</td>
+<td>
+<span class="badge ${t.status=="Hadir"?"hadir":"tidak"}">
+${t.status}
+</span>
+</td>
+</tr>
+`;
+});
+
+document.getElementById("listTamu").innerHTML=html;
+
+});
+}
+
+loadData();
+setInterval(loadData,5000); // auto refresh 5 detik
+
+</script>
+
+</body>
+</html>
