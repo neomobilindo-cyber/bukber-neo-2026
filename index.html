@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Undangan Buka Puasa</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
+
 body{
 margin:0;
 font-family:'Poppins',sans-serif;
@@ -17,6 +19,7 @@ overflow-x:hidden;
 }
 
 /* COVER */
+
 .cover{
 position:fixed;
 width:100%;
@@ -43,9 +46,14 @@ box-shadow:0 10px 30px rgba(255,215,0,0.4);
 opacity:0;
 animation:fadeIn 2s forwards;
 }
-@keyframes fadeIn{to{opacity:1;}}
+
+@keyframes fadeIn{
+to{opacity:1;}
+}
+
 
 /* CARD */
+
 .card{
 display:none;
 width:92%;
@@ -57,7 +65,10 @@ border-radius:20px;
 box-shadow:0 0 25px rgba(255,215,0,0.3);
 }
 
-h1{color:gold;text-align:center;}
+h1{
+color:gold;
+text-align:center;
+}
 
 input,select{
 width:100%;
@@ -101,7 +112,9 @@ margin-top:12px;
 box-shadow:0 6px 18px rgba(255,215,0,0.4);
 }
 
-/* POPUP MODAL PREMIUM */
+
+/* POPUP */
+
 .popup{
 position:fixed;
 top:0;
@@ -132,16 +145,6 @@ text-align:center;
 width:85%;
 max-width:350px;
 box-shadow:0 15px 40px rgba(0,0,0,0.5);
-animation:scaleIn 0.3s ease;
-}
-
-@keyframes scaleIn{
-from{transform:scale(0.8);opacity:0;}
-to{transform:scale(1);opacity:1;}
-}
-
-.popup-content h3{
-margin-top:0;
 }
 
 .popup-success h3{color:#00e676;}
@@ -156,89 +159,74 @@ padding:10px 20px;
 border-radius:20px;
 cursor:pointer;
 }
+
 </style>
 </head>
 
 <body>
 
+
+<!-- COVER -->
+
 <div class="cover" id="cover">
+
 <div class="envelope" onclick="openInvite()"></div>
+
 <h3 style="color:gold;margin-top:20px;">Klik Amplop Untuk Membuka</h3>
+
 <p id="coverNama"></p>
+
 </div>
+
+
 
 <audio id="bgm" loop>
 <source src="musik.mp3">
 </audio>
+
+
+
+<!-- CARD -->
 
 <div class="card" id="card">
 
 <h1>🌙 Buka Puasa Bersama 🌙</h1>
 
 <p id="namaTamu" style="text-align:center;color:gold;"></p>
-<p>Mengundang teman2 untuk berbuka puasa bersama.</p>
+
 <p style="text-align:center;">
-Senin, <b>9 Maret 2026</b><br>
+Senin <b>9 Maret 2026</b><br>
 17.00 WIB - Selesai
 </p>
 
-<div id="countdown" style="text-align:center;color:gold;"></div>
+
 
 <h3>Lokasi</h3>
 
 <div style="position:relative;padding-bottom:60%;height:0;overflow:hidden;border-radius:15px;">
-  <iframe 
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3954.5277235806047!2d110.424458!3d-7.6262529999999975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a61c56c5d6cf3%3A0x6f49678c04608c08!2sHeHa%20Forest!5e0!3m2!1sen!2sid!4v1772676140455!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-    style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
-    allowfullscreen=""
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade">
-  </iframe>
-  <style>
-.map-button{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:10px;
-background:linear-gradient(135deg,#ffd700,#ffb300);
-color:#000;
-padding:14px 18px;
-border-radius:30px;
-font-weight:600;
-text-decoration:none;
-font-size:15px;
-box-shadow:0 8px 20px rgba(255,215,0,0.4);
-transition:all 0.3s ease;
-margin-top:12px;
-}
 
-.map-button:hover{
-transform:translateY(-3px);
-box-shadow:0 12px 25px rgba(255,215,0,0.6);
-}
+<iframe 
+src="https://www.google.com/maps?q=HeHa+Forest&output=embed"
+style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;">
+</iframe>
 
-.map-button:active{
-transform:scale(0.97);
-}
-.map-icon{
-font-size:18px;
-}
-</style>
+</div>
+
+
 <a href="https://maps.app.goo.gl/oMj76aWn5aHCmUbu5"
-   target="_blank"
-   style="display:flex;align-items:center;justify-content:center;
-   background:linear-gradient(135deg,#ffd700,#ffb300);
-   color:#000;padding:14px;border-radius:30px;
-   font-weight:600;text-decoration:none;
-   box-shadow:0 8px 20px rgba(255,215,0,0.4);
-   margin-top:12px;">
-   📍 Buka Lokasi di Google Maps
+target="_blank"
+class="map-button">
+📍 Buka Lokasi di Google Maps
 </a>
+
+
 
 <h3>Konfirmasi Kehadiran</h3>
 
 <input type="text" id="nama" placeholder="Nama Anda">
+
 <input type="number" id="jumlah" placeholder="Jumlah Hadir">
+
 <select id="status">
 <option value="Hadir">Hadir</option>
 <option value="Tidak Hadir">Tidak Hadir</option>
@@ -252,107 +240,209 @@ Total Hadir: <span id="totalHadir">0</span> / 50
 
 </div>
 
+
+
 <!-- POPUP -->
+
 <div id="popup" class="popup">
+
 <div class="popup-content" id="popupContent">
+
 <h3 id="popupTitle"></h3>
+
 <p id="popupMessage"></p>
+
 <button class="close-btn" onclick="closePopup()">Tutup</button>
+
 </div>
+
 </div>
+
+
 
 <script>
 
 const URL="https://script.google.com/macros/s/AKfycbyMI1hxxDcEsiTQDWVM2vzakkAK4hgUSk50_2xt5bycRVRZyotCvwglwQw5WWiaqVEmxQ/exec";
 
+
+
 function openInvite(){
+
 document.getElementById("cover").style.display="none";
+
 document.getElementById("card").style.display="block";
+
 document.getElementById("bgm").play();
+
 }
 
-// nama dari URL
-var url=new URL(window.location.href);
-var tamu=url.searchParams.get("to");
+
+
+const params=new URLSearchParams(window.location.search);
+
+const tamu=params.get("to");
+
+
 
 if(tamu){
+
 document.getElementById("coverNama").innerHTML="Undangan Untuk <b>"+tamu+"</b>";
+
 document.getElementById("coverNama").classList.add("fade-in");
+
 document.getElementById("namaTamu").innerHTML="Kepada Yth.<br><b>"+tamu+"</b>";
+
 document.getElementById("nama").value=tamu;
+
 }
 
-// popup
+
+
 function showPopup(title,message,type){
+
 let popup=document.getElementById("popup");
+
 let content=document.getElementById("popupContent");
+
+
+
 document.getElementById("popupTitle").innerText=title;
+
 document.getElementById("popupMessage").innerText=message;
+
+
+
 content.className="popup-content popup-"+type;
+
 popup.classList.add("active");
+
 }
+
+
 
 function closePopup(){
+
 document.getElementById("popup").classList.remove("active");
+
 }
 
-// kirim data
+
+
 function kirimData(){
+
 let nama=document.getElementById("nama").value.trim();
+
 let jumlah=document.getElementById("jumlah").value;
+
 let status=document.getElementById("status").value;
+
 let btn=document.getElementById("btnKirim");
 
+
+
 if(!nama || !jumlah){
+
 showPopup("Data Belum Lengkap","Mohon isi semua field.","error");
+
 return;
+
 }
 
+
+
 btn.disabled=true;
+
 btn.innerText="Mengirim...";
 
+
+
 fetch(URL,{
+
 method:"POST",
+
 headers:{"Content-Type":"application/json"},
-body:JSON.stringify({nama:nama,jumlah:jumlah,status:status})
+
+body:JSON.stringify({
+
+nama:nama,
+
+jumlah:jumlah,
+
+status:status
+
 })
+
+})
+
 .then(res=>res.json())
+
 .then(response=>{
 
+
+
 if(response.status=="SUCCESS"){
+
 showPopup("Berhasil 🎉","Konfirmasi berhasil dikirim.","success");
+
 document.getElementById("totalHadir").innerText=response.total;
+
 btn.innerText="Terkirim";
+
+
 
 var pesan=`Konfirmasi Buka Puasa:%0A
 Nama:${nama}%0A
 Jumlah:${jumlah}%0A
 Status:${status}`;
 
+
+
 window.open("https://wa.me/6281388991730?text="+pesan,"_blank");
 
+
+
 }else if(response.status=="DUPLIKAT"){
+
 showPopup("Gagal","Data sudah pernah dikirim.","error");
+
 btn.disabled=false;
+
 btn.innerText="Kirim Konfirmasi";
+
+
 
 }else if(response.status=="FULL"){
+
 showPopup("Kuota Penuh","Maaf kuota sudah penuh.","warning");
+
 btn.disabled=false;
+
 btn.innerText="Kirim Konfirmasi";
 
+
+
 }else{
+
 showPopup("Error","Terjadi kesalahan server.","error");
+
 btn.disabled=false;
+
 btn.innerText="Kirim Konfirmasi";
+
 }
 
 })
+
 .catch(()=>{
+
 showPopup("Error","Tidak bisa terhubung ke server.","error");
+
 btn.disabled=false;
+
 btn.innerText="Kirim Konfirmasi";
+
 });
+
 }
 
 </script>
