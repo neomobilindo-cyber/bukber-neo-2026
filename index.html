@@ -3,326 +3,157 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Undangan Buka Puasa</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<title>Buka Puasa Bersama</title>
 
 <style>
-body{
-margin:0;
-font-family:'Poppins',sans-serif;
-background:linear-gradient(135deg,#000,#1a1a1a);
-color:white;
-overflow-x:hidden;
+body {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 20px;
 }
 
-/* COVER */
-.cover{
-position:fixed;
-width:100%;
-height:100vh;
-background:#000;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:999;
-text-align:center;
+.card {
+  background: #1e1e1e;
+  padding: 25px;
+  border-radius: 15px;
+  max-width: 400px;
+  margin: auto;
 }
 
-.envelope{
-width:220px;
-height:140px;
-background:linear-gradient(135deg,gold,#ffb300);
-border-radius:12px;
-cursor:pointer;
-box-shadow:0 10px 30px rgba(255,215,0,0.4);
+input, select, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
 }
 
-.fade-in{
-opacity:0;
-animation:fadeIn 2s forwards;
-}
-@keyframes fadeIn{to{opacity:1;}}
-
-/* CARD */
-.card{
-display:none;
-width:92%;
-max-width:600px;
-margin:30px auto;
-background:rgba(255,215,0,0.05);
-padding:20px;
-border-radius:20px;
-box-shadow:0 0 25px rgba(255,215,0,0.3);
+button {
+  background: #ff9800;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-h1{color:gold;text-align:center;}
-
-input,select{
-width:100%;
-padding:14px;
-margin:8px 0;
-border-radius:12px;
-border:none;
-font-size:16px;
+button:hover {
+  opacity: 0.9;
 }
 
-button{
-width:100%;
-background:linear-gradient(135deg,#ffd700,#ffb300);
-color:black;
-padding:14px;
-border:none;
-border-radius:30px;
-font-weight:bold;
-cursor:pointer;
-margin-top:10px;
-box-shadow:0 6px 18px rgba(255,215,0,0.4);
+.popup {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 25px;
+  border-radius: 10px;
+  color: white;
+  display: none;
+  font-weight: bold;
 }
+.success { background: green; }
+.error { background: red; }
+.warning { background: orange; }
 
-button:disabled{
-background:#777;
-cursor:not-allowed;
-box-shadow:none;
-}
-
-.map-button{
-display:flex;
-justify-content:center;
-align-items:center;
-background:linear-gradient(135deg,#ffd700,#ffb300);
-color:#000;
-padding:14px;
-border-radius:30px;
-font-weight:600;
-text-decoration:none;
-margin-top:12px;
-box-shadow:0 6px 18px rgba(255,215,0,0.4);
-}
-
-/* POPUP */
-.popup{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-display:flex;
-justify-content:center;
-align-items:center;
-background:rgba(0,0,0,0.6);
-backdrop-filter:blur(6px);
-opacity:0;
-visibility:hidden;
-transition:all 0.3s ease;
-z-index:9999;
-}
-
-.popup.active{
-opacity:1;
-visibility:visible;
-}
-
-.popup-content{
-background:rgba(30,30,30,0.95);
-padding:30px;
-border-radius:20px;
-text-align:center;
-width:85%;
-max-width:350px;
-box-shadow:0 15px 40px rgba(0,0,0,0.5);
-}
-
-.popup-success h3{color:#00e676;}
-.popup-error h3{color:#ff5252;}
-.popup-warning h3{color:#ffb74d;}
-
-.close-btn{
-margin-top:15px;
-background:gold;
-border:none;
-padding:10px 20px;
-border-radius:20px;
-cursor:pointer;
+.counter {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #ccc;
 }
 </style>
 </head>
-
 <body>
 
-<div class="cover" id="cover">
-<div class="envelope" onclick="openInvite()"></div>
-<h3 style="color:gold;margin-top:20px;">Klik Amplop Untuk Membuka</h3>
-<p id="coverNama"></p>
+<div class="card">
+  <h1>Buka Puasa Bersama</h1>
+  <p>Senin, 9 Maret 2026</p>
+
+  <form id="formKehadiran">
+    <input type="text" name="nama" placeholder="Nama Anda" required>
+    <input type="number" name="jumlah" placeholder="Jumlah Orang" required min="1">
+    <select name="status" required>
+      <option value="">Pilih Kehadiran</option>
+      <option value="Hadir">Hadir</option>
+      <option value="Tidak Hadir">Tidak Hadir</option>
+    </select>
+    <button type="submit">Kirim</button>
+  </form>
+
+  <div class="counter">
+    Total Hadir: <span id="totalHadir">0</span> / 50
+  </div>
 </div>
 
-<div class="card" id="card">
-
-<h1>🌙 Buka Puasa Bersama 🌙</h1>
-<p style="text-align:left;">
-Kepada : <br>
-<b id="namaTamu"></b>
-</p><p style="text-align:left;">
-<p style="text-align:left;">
-Senin, <b>9 Maret 2026</b><br>
-17.00 WIB - Selesai
-</p>
-
-<h3>Lokasi</h3>
-
-<div style="position:relative;padding-bottom:60%;height:0;overflow:hidden;border-radius:15px;">
-<iframe 
-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3954.5277235806047!2d110.424458!3d-7.6262529999999975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a61c56c5d6cf3%3A0x6f49678c04608c08!2sHeHa%20Forest!5e0!3m2!1sen!2sid!4v1772676140455!5m2!1sen!2sid"
-style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
-allowfullscreen
-loading="lazy">
-</iframe>
-</div>
-
-<a href="https://maps.app.goo.gl/oMj76aWn5aHCmUbu5" target="_blank" class="map-button">
-📍 Buka Lokasi di Google Maps
-</a>
-
-<h3>Konfirmasi Kehadiran</h3>
-
-<input type="text" id="nama" placeholder="Nama Anda">
-<input type="number" id="jumlah" placeholder="Jumlah Hadir">
-<select id="status">
-<option value="Hadir">Hadir</option>
-<option value="Tidak Hadir">Tidak Hadir</option>
-</select>
-
-<button id="btnKirim" onclick="kirimData()">Kirim Konfirmasi</button>
-
-<div style="text-align:center;margin-top:10px;">
-Total Hadir: <span id="totalHadir">0</span> / 50
-</div>
-
-</div>
-
-<!-- POPUP -->
-<div id="popup" class="popup">
-<div class="popup-content" id="popupContent">
-<h3 id="popupTitle"></h3>
-<p id="popupMessage"></p>
-<button class="close-btn" onclick="closePopup()">Tutup</button>
-</div>
-</div>
+<div id="popup" class="popup"></div>
 
 <script>
+const SCRIPT_URL = "PASTE_URL_EXEC_ANDA_DISINI";
 
-const URL="https://script.google.com/macros/s/AKfycbyMI1hxxDcEsiTQDWVM2vzakkAK4hgUSk50_2xt5bycRVRZyotCvwglwQw5WWiaqVEmxQ/exec";
+const form = document.getElementById("formKehadiran");
+const popup = document.getElementById("popup");
+const totalHadir = document.getElementById("totalHadir");
 
-/* ===============================
-   BUKA UNDANGAN
-================================*/
-function openInvite(){
-document.getElementById("cover").style.display="none";
-document.getElementById("card").style.display="block";
+/* ===== Popup Modern ===== */
+function showPopup(message, type) {
+  popup.innerText = message;
+  popup.className = "popup " + type;
+  popup.style.display = "block";
+  setTimeout(() => {
+    popup.style.display = "none";
+  }, 3000);
 }
 
-/* ===============================
-   AMBIL NAMA DARI URL
-================================*/
-document.addEventListener("DOMContentLoaded", function(){
-
-const params = new URLSearchParams(window.location.search);
-const tamu = params.get("to");
-
-if(tamu){
-document.getElementById("coverNama").innerHTML =
-"Undangan Untuk <b>"+ decodeURIComponent(tamu) +"</b>";
-
-document.getElementById("coverNama").classList.add("fade-in");
-
-document.getElementById("namaTamu").innerHTML =
-decodeURIComponent(tamu);
-
-document.getElementById("nama").value =
-decodeURIComponent(tamu);
+/* ===== Ambil Total Hadir ===== */
+function loadTotal() {
+  fetch(SCRIPT_URL)
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "SUCCESS") {
+        totalHadir.innerText = data.total;
+      }
+    });
 }
 
+loadTotal();
+
+/* ===== Submit Form ===== */
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+
+    if (data.status === "SUCCESS") {
+      showPopup("✅ Data berhasil dikirim!", "success");
+      form.reset();
+      loadTotal();
+    }
+
+    else if (data.status === "DUPLIKAT") {
+      showPopup("⚠ Nama sudah terdaftar!", "warning");
+    }
+
+    else if (data.status === "FULL") {
+      showPopup("❌ Kuota sudah penuh!", "error");
+    }
+
+    else {
+      showPopup("❌ Gagal mengirim data!", "error");
+    }
+
+  })
+  .catch(() => {
+    showPopup("❌ Tidak terhubung ke server!", "error");
+  });
 });
-
-/* ===============================
-   POPUP
-================================*/
-function showPopup(title,message,type){
-let popup=document.getElementById("popup");
-let content=document.getElementById("popupContent");
-
-document.getElementById("popupTitle").innerText=title;
-document.getElementById("popupMessage").innerText=message;
-
-content.className="popup-content popup-"+type;
-popup.classList.add("active");
-}
-
-function closePopup(){
-document.getElementById("popup").classList.remove("active");
-}
-
-/* ===============================
-   KIRIM DATA (NO CORS VERSION)
-================================*/
-function kirimData(){
-
-let nama=document.getElementById("nama").value.trim();
-let jumlah=document.getElementById("jumlah").value;
-let status=document.getElementById("status").value;
-let btn=document.getElementById("btnKirim");
-
-if(!nama || !jumlah){
-showPopup("Data Belum Lengkap","Mohon isi semua field.","error");
-return;
-}
-
-btn.disabled=true;
-btn.innerText="Mengirim...";
-
-const formData = new URLSearchParams();
-formData.append("nama", nama);
-formData.append("jumlah", jumlah);
-formData.append("status", status);
-
-fetch(URL,{
-method:"POST",
-body:formData
-})
-.then(res=>res.json())
-.then(response=>{
-
-if(response.status=="SUCCESS"){
-showPopup("Berhasil 🎉","Konfirmasi berhasil dikirim.","success");
-document.getElementById("totalHadir").innerText=response.total;
-btn.innerText="Terkirim";
-
-}else if(response.status=="DUPLIKAT"){
-showPopup("Gagal","Data sudah pernah dikirim.","error");
-btn.disabled=false;
-btn.innerText="Kirim Konfirmasi";
-
-}else if(response.status=="FULL"){
-showPopup("Kuota Penuh","Maaf kuota sudah penuh.","warning");
-btn.disabled=false;
-btn.innerText="Kirim Konfirmasi";
-
-}else{
-showPopup("Error","Terjadi kesalahan server.","error");
-btn.disabled=false;
-btn.innerText="Kirim Konfirmasi";
-}
-
-})
-.catch(()=>{
-showPopup("Error","Tidak bisa terhubung ke server.","error");
-btn.disabled=false;
-btn.innerText="Kirim Konfirmasi";
-});
-
-}
-
 </script>
+
 </body>
 </html>
