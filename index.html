@@ -234,6 +234,35 @@ Total Hadir: <span id="totalHadir">0</span> / 50
 
 
 <script>
+/* =============================
+   Ambil nama tamu dari URL
+============================= */
+
+const params = new URLSearchParams(window.location.search);
+const tamu = params.get("to");
+
+if (tamu) {
+
+  const namaTamu = decodeURIComponent(tamu);
+
+  const cover = document.getElementById("coverNama");
+  const tujuan = document.getElementById("namaTamu");
+  const inputNama = document.getElementById("nama");
+
+  if (cover) {
+    cover.innerHTML = "Undangan Untuk <b>" + namaTamu + "</b>";
+    cover.classList.add("fade-in");
+  }
+
+  if (tujuan) {
+    tujuan.innerHTML = namaTamu;
+  }
+
+  if (inputNama) {
+    inputNama.value = namaTamu;
+  }
+
+}
 
 const URL="https://script.google.com/macros/s/AKfycbxttj9zviV4v_EAw9bIF3v3fKlYUyIF--A3IMpBMl0Em_rXhfXpAymmwd45H4hpDlwetg/exec";
 
